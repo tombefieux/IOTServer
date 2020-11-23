@@ -1,6 +1,5 @@
 package com.odysseycorp.homer.spring.security;
 
-
 import com.odysseycorp.homer.models.User;
 import com.odysseycorp.homer.services.UserService;
 import com.odysseycorp.homer.utils.JwtUtils;
@@ -13,8 +12,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
+import javax.servlet.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -31,7 +30,6 @@ public class SecurityFilter extends OncePerRequestFilter {
     public SecurityFilter(@Autowired UserService userService) {
         this.userService = userService;
     }
-
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

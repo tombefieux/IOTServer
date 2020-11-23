@@ -1,6 +1,7 @@
 package com.odysseycorp.homer.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -13,7 +14,8 @@ public class User {
     private String username;
     private String lastName;
     private String firstName;
-    @JsonIgnore private String password;
+    @JsonProperty (access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
 
     @Id
     @GeneratedValue(generator = "uuid")

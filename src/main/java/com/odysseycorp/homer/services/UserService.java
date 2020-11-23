@@ -1,5 +1,6 @@
 package com.odysseycorp.homer.services;
 
+import com.odysseycorp.homer.exceptions.BadArgumentException;
 import com.odysseycorp.homer.models.User;
 import com.odysseycorp.homer.repositories.UserRepository;
 import com.odysseycorp.homer.utils.HashingUtils;
@@ -15,6 +16,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -74,14 +76,36 @@ public class UserService {
     }
 
     /**
+     * To get the users
+     *
+     * @return the users
+     */
+    public List<User> getAll() {
+        return userRepository.findAll();
+    }
+
+    /**
+     * To create a new user
+     *
+     * @param user the user to add
+     */
+    public void createUser(User user) {
+        if(getUserByUsername(user.getUsername()) != null) {
+            throw new BadArgumentException("Username déjà utilisé !");
+        }
+        user.setPassword(HashingUtils.hash(user.getPassword()));
+        userRepository.save(user);
+    }
+
+    /**
      * Checks the password of a user.
      *
-     * @param id the id to find the user
+     * @param username the id to find the user
      * @param passwd the password in clear
      * @return if the password is ok or false otherwise
      */
-    public boolean mapUserFromDB(String id, String passwd) {
-        User user = this.getUserById(id);
+    public boolean mapUserFromDB(String username, String passwd) {
+        User user = this.getUserByUsername(username);
         if (user == null) {
             return false;
         }
