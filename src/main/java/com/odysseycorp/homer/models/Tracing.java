@@ -30,7 +30,7 @@ public class Tracing {
     }
 
     @Basic
-    @Column(name = "date")
+    @Column(name = "date", nullable = false)
     public Date getDate() {
         return date;
     }
@@ -40,7 +40,7 @@ public class Tracing {
     }
 
     @Basic
-    @Column(name = "time")
+    @Column(name = "time", nullable = false)
     public Time getTime() {
         return time;
     }
@@ -51,7 +51,7 @@ public class Tracing {
 
 
     @Basic
-    @Column(name = "temperature")
+    @Column(name = "temperature", nullable = false)
     public double getTemperature() {
         return temperature;
     }
@@ -61,7 +61,7 @@ public class Tracing {
     }
 
     @Basic
-    @Column(name = "humidity")
+    @Column(name = "humidity", nullable = false)
     public double getHumidity() {
         return humidity;
     }
@@ -71,7 +71,7 @@ public class Tracing {
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idController")
+    @JoinColumn(name = "idController", nullable = false)
     public Controller getController() {
         return controller;
     }

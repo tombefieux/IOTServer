@@ -33,7 +33,7 @@ public class Controller {
     }
 
     @Basic
-    @Column(name = "ip")
+    @Column(name = "ip", nullable = false)
     public String getIp() {
         return ip;
     }

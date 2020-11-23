@@ -28,7 +28,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "username")
+    @Column(name = "username", nullable = false)
     public String getUsername() {
         return username;
     }
@@ -38,7 +38,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "lastName")
+    @Column(name = "lastName", nullable = false)
     public String getLastName() {
         return lastName;
     }
@@ -48,7 +48,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "firstName")
+    @Column(name = "firstName", nullable = false)
     public String getFirstName() {
         return firstName;
     }
@@ -58,7 +58,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;
     }
