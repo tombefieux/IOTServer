@@ -44,10 +44,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable().
 
         // to authorize error response
-                authorizeRequests().
+        authorizeRequests().
         antMatchers("/error").permitAll().
-        antMatchers("/auth").permitAll().
-        antMatchers("/**").authenticated().and().
+        antMatchers("/api/v1/auth").permitAll().
+        antMatchers("/api/v1/**").authenticated().and().
 
         // stateless and use the securityEntryPoint
         exceptionHandling().authenticationEntryPoint(securityEntryPoint).and().sessionManagement()
@@ -55,8 +55,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         // add the token filter verification for each request
         http.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
-
-        http.headers().frameOptions().disable();
     }
 
     @Bean
