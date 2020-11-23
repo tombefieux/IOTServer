@@ -1,5 +1,6 @@
 package com.odysseycorp.homer.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ public class User {
     private String username;
     private String lastName;
     private String firstName;
+    @JsonIgnore private String password;
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -53,5 +55,15 @@ public class User {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    @Basic
+    @Column(name = "password")
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
