@@ -31,6 +31,11 @@ public class UserController {
         return userService.getAll();
     }
 
+    @GetMapping("id")
+    public User getUser(@RequestParam("id") String userId){
+        return userService.getUserById(userId);
+    }
+
     /**
      * To create a new user
      *
@@ -41,6 +46,16 @@ public class UserController {
     public ResponseEntity<?> createUser(@RequestBody User user) {
         userService.createUser(user);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public void updateUser(@RequestParam("id") String userId, @RequestBody User updatedUser){
+        this.userService.updateUser(userId, updatedUser);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteUser(@RequestParam("id") String userId){
+        this.userService.deleteUser(userId);
     }
 
 }

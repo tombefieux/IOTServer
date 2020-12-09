@@ -1,6 +1,7 @@
 package com.odysseycorp.homer.services;
 
 import com.odysseycorp.homer.exceptions.BadArgumentException;
+import com.odysseycorp.homer.exceptions.ResourceNotFoundException;
 import com.odysseycorp.homer.models.User;
 import com.odysseycorp.homer.repositories.UserRepository;
 import com.odysseycorp.homer.utils.HashingUtils;
@@ -95,6 +96,36 @@ public class UserService {
         }
         user.setPassword(HashingUtils.hash(user.getPassword()));
         userRepository.save(user);
+    }
+
+    /**
+    * To update an existing user
+    *
+    *
+    * @param userId the id of the user we want to update
+     * @param updatedUser updated user
+     */
+    public void updateUser(String userId, User updatedUser){
+        if(this.getUserById(userId) == null) throw new ResourceNotFoundException();
+        User oldUser = this.getUserById(userId);
+        updatedUser.setId(userId);
+        if(updatedUser.getFirstName() == null) updatedUser.setFirstName(oldUser.getFirstName());
+        if(updatedUser.getLastName() == null) updatedUser.setLastName(oldUser.getLastName());
+        if(updatedUser.getUsername() == null) updatedUser.setUsername(oldUser.getUsername());
+        if(updatedUser.getPassword() == null) updatedUser.setPassword(oldUser.getPassword());
+        userRepository.save(updatedUser);
+
+    }
+
+    /**
+     * To delete an existing user
+     *
+     * @param userId the id of the user we want to delete
+     *
+     */
+    public void deleteUser(String userId){
+        if(this.getUserById(userId) == null) throw new ResourceNotFoundException();
+        else this.userRepository.deleteById(userId);
     }
 
     /**
