@@ -62,9 +62,16 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}")
-    public void updateUser(@PathVariable("id") String userId, @RequestBody User updatedUser){
-        this.userService.updateUser(userId, updatedUser);
+    @PutMapping
+    public void updateUser(@RequestBody User updatedUser){
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        if (requestAttributes instanceof ServletRequestAttributes) {
+            HttpServletRequest request = ((ServletRequestAttributes)requestAttributes).getRequest();
+            final String requestTokenHeader = request.getHeader("Authorization");
+            final String token = requestTokenHeader.substring(7); // remove "Bearer "
+            final String id = JwtUtils.getIdInToken(token);
+            this.userService.updateUser(id, updatedUser);
+        }
     }
 
     @DeleteMapping("/{id}")

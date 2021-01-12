@@ -99,31 +99,43 @@ public class UserService {
     }
 
     /**
-    * To update an existing user
-    *
-    *
-    * @param userId the id of the user we want to update
-     * @param updatedUser updated user
+     * To update an existing user
+     *
+     * @param userId the id of the user we want to update* @param updatedUser updated user
      */
     public void updateUser(String userId, User updatedUser){
-        if(this.getUserById(userId) == null) {
+
+        User oldUser = this.getUserById(userId);
+        if(oldUser == null) {
             throw new ResourceNotFoundException();
         }
-        User oldUser = this.getUserById(userId);
-        updatedUser.setId(userId);
-        if(updatedUser.getFirstName() == null) {
-            updatedUser.setFirstName(oldUser.getFirstName());
+
+        if(updatedUser.getFirstName() != null) {
+            oldUser.setFirstName(updatedUser.getFirstName());
         }
-        if(updatedUser.getLastName() == null) {
-            updatedUser.setLastName(oldUser.getLastName());
+        if(updatedUser.getLastName() != null) {
+            oldUser.setLastName(updatedUser.getLastName());
         }
-        if(updatedUser.getUsername() == null) {
-            updatedUser.setUsername(oldUser.getUsername());
+        if(updatedUser.getPassword() != null) {
+            oldUser.setPassword(HashingUtils.hash(updatedUser.getPassword()));
         }
-        if(updatedUser.getPassword() == null) {
-            updatedUser.setPassword(oldUser.getPassword());
+        if(updatedUser.getAddress() != null) {
+            oldUser.setAddress(updatedUser.getAddress());
         }
-        userRepository.save(updatedUser);
+        if(updatedUser.getCity() != null) {
+            oldUser.setCity(updatedUser.getCity());
+        }
+        if(updatedUser.getAge() != null) {
+            oldUser.setAge(updatedUser.getAge());
+        }
+        if(updatedUser.getCountry() != null) {
+            oldUser.setCountry(updatedUser.getCountry());
+        }
+        if(updatedUser.getEmail() != null) {
+            oldUser.setEmail(updatedUser.getEmail());
+        }
+
+        userRepository.save(oldUser);
     }
 
     /**
