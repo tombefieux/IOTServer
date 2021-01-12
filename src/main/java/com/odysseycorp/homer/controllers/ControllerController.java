@@ -1,6 +1,7 @@
 package com.odysseycorp.homer.controllers;
 
 import com.odysseycorp.homer.models.Controller;
+import com.odysseycorp.homer.models.responses.SensorsResponse;
 import com.odysseycorp.homer.services.ControllerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +25,8 @@ public class ControllerController {
     }
 
     @GetMapping("/{id}/sensors")
-    public void getSensors(@PathVariable("id") String controllerId){
-        //TODO: Get sensors of a specific Controller
+    public SensorsResponse getSensors(@PathVariable("id") String controllerId){
+        return controllerService.getSensorsValue(controllerId);
     }
 
     @PutMapping("/{id}")
