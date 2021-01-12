@@ -2,10 +2,15 @@ package com.odysseycorp.homer.controllers;
 
 import com.odysseycorp.homer.models.User;
 import com.odysseycorp.homer.services.UserService;
+import com.odysseycorp.homer.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -22,13 +27,22 @@ public class UserController {
     }
 
     /**
-     * To get the users
+     * To get the current user
      *
-     * @return the users
+     * @return the current user
      */
     @GetMapping
-    public List<User> getAll() {
-        return userService.getAll();
+    public User getCurrent() {
+        // get request
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        if (requestAttributes instanceof ServletRequestAttributes) {
+            HttpServletRequest request = ((ServletRequestAttributes)requestAttributes).getRequest();
+            final String requestTokenHeader = request.getHeader("Authorization");
+            final String token = requestTokenHeader.substring(7); // remove "Bearer "
+            final String id = JwtUtils.getIdInToken(token);
+            return userService.getUserById(id);
+        }
+        return null;
     }
 
     @GetMapping("/{id}")
