@@ -4,6 +4,7 @@ package com.odysseycorp.homer.services;
 import com.odysseycorp.homer.exceptions.ResourceNotFoundException;
 import com.odysseycorp.homer.models.Controller;
 import com.odysseycorp.homer.models.requests.NameRequest;
+import com.odysseycorp.homer.models.responses.SensorsResponse;
 import com.odysseycorp.homer.repositories.ControllerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ public class ControllerService {
     public List<Controller> getControllers(){
         List<Controller> controllers = controllerRepository.findAll();
         for (int i = 0; i < controllers.size(); i++) {
-            controllers.set(i, fetchData(controllers.get(i).getIp()));
+            controllers.set(i, getController(controllers.get(i).getId()));
         }
         return controllers;
     }
@@ -94,6 +95,12 @@ public class ControllerService {
 
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.put("http://" + oldController.getIp()  + ":80/controller", oldController);
+    }
+
+    public SensorsResponse getSensorsValue(String id) {
+        Controller controller = getController(id);
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject("http://" + controller.getIp()  + ":80/sensors", SensorsResponse.class);
     }
 
 }
