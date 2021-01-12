@@ -31,8 +31,8 @@ public class UserController {
         return userService.getAll();
     }
 
-    @GetMapping("id")
-    public User getUser(@RequestParam("id") String userId){
+    @GetMapping("/{id}")
+    public User getUser(@PathVariable("id") String userId){
         return userService.getUserById(userId);
     }
 
@@ -49,12 +49,12 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public void updateUser(@RequestParam("id") String userId, @RequestBody User updatedUser){
+    public void updateUser(@PathVariable("id") String userId, @RequestBody User updatedUser){
         this.userService.updateUser(userId, updatedUser);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@RequestParam("id") String userId){
+    public void deleteUser(@PathVariable("id") String userId){
         this.userService.deleteUser(userId);
     }
 

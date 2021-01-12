@@ -12,13 +12,13 @@ public class Controller {
     private String id;
     private String ip;
     private String name;
-    private boolean usePresenceSensor;
-    private boolean useTemperatureSensor;
-    private boolean alarmIsEnabled;
-    private double maxTemperature;
-    private double minTemperature;
-    private double maxHumidity;
-    private double minHumidity;
+    private Boolean usePresenceSensor;
+    private Boolean useTemperatureSensor;
+    private Boolean alarmIsEnabled;
+    private Integer maxTemperature;
+    private Integer minTemperature;
+    private Integer maxHumidity;
+    private Integer minHumidity;
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -51,65 +51,65 @@ public class Controller {
     }
 
     @Transient
-    public boolean isUsePresenceSensor() {
+    public Boolean isUsePresenceSensor() {
         return usePresenceSensor;
     }
 
-    public void setUsePresenceSensor(boolean usePresenceSensor) {
+    public void setUsePresenceSensor(Boolean usePresenceSensor) {
         this.usePresenceSensor = usePresenceSensor;
     }
 
     @Transient
-    public boolean isUseTemperatureSensor() {
+    public Boolean isUseTemperatureSensor() {
         return useTemperatureSensor;
     }
 
-    public void setUseTemperatureSensor(boolean useTemperatureSensor) {
+    public void setUseTemperatureSensor(Boolean useTemperatureSensor) {
         this.useTemperatureSensor = useTemperatureSensor;
     }
 
     @Transient
-    public boolean isAlarmIsEnabled() {
+    public Boolean isAlarmIsEnabled() {
         return alarmIsEnabled;
     }
 
-    public void setAlarmIsEnabled(boolean alarmIsEnabled) {
+    public void setAlarmIsEnabled(Boolean alarmIsEnabled) {
         this.alarmIsEnabled = alarmIsEnabled;
     }
 
     @Transient
-    public double getMaxTemperature() {
+    public Integer getMaxTemperature() {
         return maxTemperature;
     }
 
-    public void setMaxTemperature(double maxTemperature) {
+    public void setMaxTemperature(Integer maxTemperature) {
         this.maxTemperature = maxTemperature;
     }
 
     @Transient
-    public double getMinTemperature() {
+    public Integer getMinTemperature() {
         return minTemperature;
     }
 
-    public void setMinTemperature(double minTemperature) {
+    public void setMinTemperature(Integer minTemperature) {
         this.minTemperature = minTemperature;
     }
 
     @Transient
-    public double getMaxHumidity() {
+    public Integer getMaxHumidity() {
         return maxHumidity;
     }
 
-    public void setMaxHumidity(double maxHumidity) {
+    public void setMaxHumidity(Integer maxHumidity) {
         this.maxHumidity = maxHumidity;
     }
 
     @Transient
-    public double getMinHumidity() {
+    public Integer getMinHumidity() {
         return minHumidity;
     }
 
-    public void setMinHumidity(double minHumidity) {
+    public void setMinHumidity(Integer minHumidity) {
         this.minHumidity = minHumidity;
     }
 }

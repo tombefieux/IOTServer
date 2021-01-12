@@ -19,22 +19,22 @@ public class ControllerController {
     }
 
     @GetMapping("/{id}")
-    public Controller getController(@RequestParam("id") String controllerId){
+    public Controller getController(@PathVariable("id") String controllerId){
         return controllerService.getController(controllerId);
     }
 
-    @GetMapping("/{id]/sensors")
-    public void getSensors(@RequestParam("id") String controllerId){
+    @GetMapping("/{id}/sensors")
+    public void getSensors(@PathVariable("id") String controllerId){
         //TODO: Get sensors of a specific Controller
     }
 
     @PutMapping("/{id}")
-    public void UpdateController(@RequestParam("id") String controllerId, @RequestBody Controller controller){
+    public void UpdateController(@PathVariable("id") String controllerId, @RequestBody Controller controller){
         controllerService.updateController(controllerId, controller);
     }
 
     @DeleteMapping("/{id}")
-    public void DeleteController(@RequestParam("id") String controllerId){
+    public void DeleteController(@PathVariable("id") String controllerId){
         this.controllerService.deleteController(controllerId);
     }
 

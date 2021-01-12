@@ -106,15 +106,24 @@ public class UserService {
      * @param updatedUser updated user
      */
     public void updateUser(String userId, User updatedUser){
-        if(this.getUserById(userId) == null) throw new ResourceNotFoundException();
+        if(this.getUserById(userId) == null) {
+            throw new ResourceNotFoundException();
+        }
         User oldUser = this.getUserById(userId);
         updatedUser.setId(userId);
-        if(updatedUser.getFirstName() == null) updatedUser.setFirstName(oldUser.getFirstName());
-        if(updatedUser.getLastName() == null) updatedUser.setLastName(oldUser.getLastName());
-        if(updatedUser.getUsername() == null) updatedUser.setUsername(oldUser.getUsername());
-        if(updatedUser.getPassword() == null) updatedUser.setPassword(oldUser.getPassword());
+        if(updatedUser.getFirstName() == null) {
+            updatedUser.setFirstName(oldUser.getFirstName());
+        }
+        if(updatedUser.getLastName() == null) {
+            updatedUser.setLastName(oldUser.getLastName());
+        }
+        if(updatedUser.getUsername() == null) {
+            updatedUser.setUsername(oldUser.getUsername());
+        }
+        if(updatedUser.getPassword() == null) {
+            updatedUser.setPassword(oldUser.getPassword());
+        }
         userRepository.save(updatedUser);
-
     }
 
     /**
@@ -124,8 +133,10 @@ public class UserService {
      *
      */
     public void deleteUser(String userId){
-        if(this.getUserById(userId) == null) throw new ResourceNotFoundException();
-        else this.userRepository.deleteById(userId);
+        if(this.getUserById(userId) == null) {
+            throw new ResourceNotFoundException();
+        }
+        this.userRepository.deleteById(userId);
     }
 
     /**
