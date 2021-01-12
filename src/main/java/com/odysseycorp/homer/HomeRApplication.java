@@ -54,7 +54,7 @@ public class HomeRApplication {
 						tracing.setDate(new Date(Calendar.getInstance().getTime().getTime()));
 						tracing.setTime(new Time(Calendar.getInstance().getTime().getTime()));
 						tracing.setHumidity(values.getHumidity());
-						tracing.setTemperature(values.getHumidity());
+						tracing.setTemperature(values.getTemperature());
 						tracingRepository.save(tracing);
 					}
 				}
