@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.client.ResourceAccessException;
 
 import javax.annotation.PostConstruct;
 import java.sql.Date;
@@ -46,17 +47,21 @@ public class HomeRApplication {
 				}
 
 				// record
-				for (Controller c : controllerService.getControllers()) {
-					SensorsResponse values = controllerService.getSensorsValue(c.getId());
-					if(values != null && values.getHumidity() != null) {
-						Tracing tracing = new Tracing();
-						tracing.setController(c);
-						tracing.setDate(new Date(Calendar.getInstance().getTime().getTime()));
-						tracing.setTime(new Time(Calendar.getInstance().getTime().getTime()));
-						tracing.setHumidity(values.getHumidity());
-						tracing.setTemperature(values.getTemperature());
-						tracingRepository.save(tracing);
+				try {
+					for (Controller c : controllerService.getControllers()) {
+						SensorsResponse values = controllerService.getSensorsValue(c.getId());
+						if(values != null && values.getHumidity() != null) {
+							Tracing tracing = new Tracing();
+							tracing.setController(c);
+							tracing.setDate(new Date(Calendar.getInstance().getTime().getTime()));
+							tracing.setTime(new Time(Calendar.getInstance().getTime().getTime()));
+							tracing.setHumidity(values.getHumidity());
+							tracing.setTemperature(values.getTemperature());
+							tracingRepository.save(tracing);
+						}
 					}
+				} catch (ResourceAccessException e) {
+					LOGGER.warn("Skipped recording because of unreachable controller");
 				}
 			}
 		}).start();
