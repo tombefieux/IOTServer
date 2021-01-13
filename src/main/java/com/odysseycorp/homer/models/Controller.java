@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "controller", schema = "iot", catalog = "")
 public class Controller {
 
-    private String id;
+    private Integer id;
     private String ip;
     private String name;
     private Boolean usePresenceSensor;
@@ -21,14 +21,13 @@ public class Controller {
     private Integer minHumidity;
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idController")
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

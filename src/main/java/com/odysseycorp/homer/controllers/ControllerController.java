@@ -20,22 +20,22 @@ public class ControllerController {
     }
 
     @GetMapping("/{id}")
-    public Controller getController(@PathVariable("id") String controllerId){
+    public Controller getController(@PathVariable("id") Integer controllerId){
         return controllerService.getController(controllerId);
     }
 
     @GetMapping("/{id}/sensors")
-    public SensorsResponse getSensors(@PathVariable("id") String controllerId){
+    public SensorsResponse getSensors(@PathVariable("id") Integer controllerId){
         return controllerService.getSensorsValue(controllerId);
     }
 
     @PutMapping("/{id}")
-    public void UpdateController(@PathVariable("id") String controllerId, @RequestBody Controller controller){
+    public void UpdateController(@PathVariable("id") Integer controllerId, @RequestBody Controller controller){
         controllerService.updateController(controllerId, controller);
     }
 
     @DeleteMapping("/{id}")
-    public void DeleteController(@PathVariable("id") String controllerId){
+    public void DeleteController(@PathVariable("id") Integer controllerId){
         this.controllerService.deleteController(controllerId);
     }
 

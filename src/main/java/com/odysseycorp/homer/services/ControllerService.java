@@ -35,7 +35,7 @@ public class ControllerService {
         return controllers;
     }
 
-    public Controller getController(String idController){
+    public Controller getController(Integer idController){
         Optional<Controller> dbController = controllerRepository.findById(idController);
         if(dbController.isEmpty()){
             throw new ResourceNotFoundException();
@@ -55,11 +55,11 @@ public class ControllerService {
         restTemplate.put("http://" + controller.getIp()  + ":80/controller", request);
     }
 
-    public void deleteController(String idController) {
+    public void deleteController(Integer idController) {
         controllerRepository.deleteById(idController);
     }
 
-    public void updateController(String id, Controller updatedController){
+    public void updateController(Integer id, Controller updatedController){
         Controller oldController = getController(id);
         updatedController.setId(id);
         if(updatedController.getIp() != null) {
@@ -97,7 +97,7 @@ public class ControllerService {
         restTemplate.put("http://" + oldController.getIp()  + ":80/controller", oldController);
     }
 
-    public SensorsResponse getSensorsValue(String id) {
+    public SensorsResponse getSensorsValue(Integer id) {
         Controller controller = getController(id);
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject("http://" + controller.getIp()  + ":80/sensors", SensorsResponse.class);
