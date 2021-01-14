@@ -55,7 +55,7 @@ public class ControllerService {
         return dbController.get();
     }
 
-    public void addController(Controller newController){
+    public Controller addController(Controller newController){
         Controller controller = controllerRepository.save(newController);
 
         // send update to controller
@@ -66,6 +66,7 @@ public class ControllerService {
         } catch(Exception e) {
             LOGGER.debug("Cannot access to new controller");
         }
+        return controller;
     }
 
     public void deleteController(Integer idController) {
@@ -115,5 +116,4 @@ public class ControllerService {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject("http://" + controller.getIp()  + ":80/sensors", SensorsResponse.class);
     }
-
 }

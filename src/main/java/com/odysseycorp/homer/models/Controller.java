@@ -40,7 +40,8 @@ public class Controller {
         this.ip = ip;
     }
 
-    @Transient
+    @Basic
+    @Column(name = "name", nullable = false)
     public String getName() {
         return name;
     }

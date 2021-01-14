@@ -40,8 +40,8 @@ public class ControllerController {
     }
 
     @PostMapping()
-    public void AddController(@RequestBody Controller controller){
-        this.controllerService.addController(controller);
+    public Controller AddController(@RequestBody Controller controller){
+        return this.controllerService.addController(controller);
     }
 
     @GetMapping
