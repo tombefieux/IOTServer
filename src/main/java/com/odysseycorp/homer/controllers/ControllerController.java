@@ -30,8 +30,8 @@ public class ControllerController {
     }
 
     @PutMapping("/{id}")
-    public void UpdateController(@PathVariable("id") Integer controllerId, @RequestBody Controller controller){
-        controllerService.updateController(controllerId, controller);
+    public Controller UpdateController(@PathVariable("id") Integer controllerId, @RequestBody Controller controller){
+        return controllerService.updateController(controllerId, controller);
     }
 
     @DeleteMapping("/{id}")

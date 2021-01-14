@@ -73,7 +73,7 @@ public class ControllerService {
         controllerRepository.deleteById(idController);
     }
 
-    public void updateController(Integer id, Controller updatedController){
+    public Controller updateController(Integer id, Controller updatedController){
         Controller oldController = getController(id);
         updatedController.setId(id);
         if(updatedController.getIp() != null) {
@@ -109,6 +109,7 @@ public class ControllerService {
 
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.put("http://" + oldController.getIp()  + ":80/controller", oldController);
+        return oldController;
     }
 
     public SensorsResponse getSensorsValue(Integer id) {
