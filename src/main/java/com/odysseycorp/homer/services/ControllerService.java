@@ -6,6 +6,8 @@ import com.odysseycorp.homer.models.Controller;
 import com.odysseycorp.homer.models.requests.NameRequest;
 import com.odysseycorp.homer.models.responses.SensorsResponse;
 import com.odysseycorp.homer.repositories.ControllerRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -16,6 +18,8 @@ import java.util.Optional;
 @Service
 public class ControllerService {
     private ControllerRepository controllerRepository;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ControllerService.class);
 
     @Autowired
     public ControllerService(ControllerRepository controllerRepository){
@@ -40,10 +44,15 @@ public class ControllerService {
         if(dbController.isEmpty()){
             throw new ResourceNotFoundException();
         }
-        Controller result = fetchData(dbController.get().getIp());
-        result.setIp(dbController.get().getIp());
-        result.setId(dbController.get().getId());
-        return result;
+        try {
+            Controller result = fetchData(dbController.get().getIp());
+            result.setIp(dbController.get().getIp());
+            result.setId(dbController.get().getId());
+            return result;
+        } catch(Exception e) {
+            LOGGER.debug("Cannot access to controller");
+        }
+        return dbController.get();
     }
 
     public void addController(Controller newController){
@@ -52,7 +61,11 @@ public class ControllerService {
         // send update to controller
         NameRequest request = new NameRequest(newController.getName());
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.put("http://" + controller.getIp()  + ":80/controller", request);
+        try {
+            restTemplate.put("http://" + controller.getIp() + ":80/controller", request);
+        } catch(Exception e) {
+            LOGGER.debug("Cannot access to new controller");
+        }
     }
 
     public void deleteController(Integer idController) {
