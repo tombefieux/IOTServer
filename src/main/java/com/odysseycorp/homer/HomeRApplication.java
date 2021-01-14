@@ -60,7 +60,7 @@ public class HomeRApplication {
 							tracingRepository.save(tracing);
 						}
 					}
-				} catch (ResourceAccessException e) {
+				} catch (Exception e) {
 					LOGGER.warn("Skipped recording because of unreachable controller");
 				}
 			}
