@@ -57,9 +57,8 @@ public class UserController {
      * @return empty response
      */
     @PostMapping
-    public ResponseEntity<?> createUser(@RequestBody User user) {
-        userService.createUser(user);
-        return ResponseEntity.noContent().build();
+    public User createUser(@RequestBody User user) {
+        return userService.createUser(user);
     }
 
     @PutMapping

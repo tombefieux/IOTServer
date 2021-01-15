@@ -90,12 +90,12 @@ public class UserService {
      *
      * @param user the user to add
      */
-    public void createUser(User user) {
+    public User createUser(User user) {
         if(getUserByUsername(user.getUsername()) != null) {
             throw new BadArgumentException("Username déjà utilisé !");
         }
         user.setPassword(HashingUtils.hash(user.getPassword()));
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     /**
