@@ -9,9 +9,11 @@ import com.odysseycorp.homer.repositories.ControllerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +29,7 @@ public class ControllerService {
     }
 
     private static Controller fetchData(String ip){
-        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = new RestTemplateBuilder().setConnectTimeout(Duration.ofMillis(500)).build();
         return restTemplate.getForObject("http://" + ip  + ":80/controller", Controller.class);
     }
 
@@ -60,7 +62,7 @@ public class ControllerService {
 
         // send update to controller
         NameRequest request = new NameRequest(newController.getName());
-        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = new RestTemplateBuilder().setConnectTimeout(Duration.ofMillis(500)).build();
         try {
             restTemplate.put("http://" + controller.getIp() + ":80/controller", request);
         } catch(Exception e) {
